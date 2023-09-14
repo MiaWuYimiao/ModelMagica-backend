@@ -1,0 +1,52 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "required": [
+        "fullname",
+        "role"
+    ],
+    "properties": {
+        "fullname": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 30
+        },
+        "profileImg": {
+            "type": "integer"
+        },
+        "role": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 30
+        },
+        "biography": {
+            "type": "string"
+        },
+        "birthday": {
+            "type": "string",
+            "format": "date"
+        },
+        "nationalities": {
+            "type": "string"
+        },
+        "socialMedia": {
+            "type": "string",
+            "format": "uri"
+        },
+        "follower": {
+            "type": "integer"
+        }
+    },
+    "additionalProperties": false,
+    "examples": [{
+        "fullname": "sams-buter",
+        "profileImg": "https://img.png",
+        "role": "Model",
+        "biography": "Wold top model",
+        "birthday": "2000-01-01",
+        "nationalities": "US",
+        "socialMedia": "https://ins/wh",
+        "follower": 3000
+    }]
+}
