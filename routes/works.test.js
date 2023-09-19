@@ -95,6 +95,7 @@ describe("GET /works", function () {
               type: "Editorial",
               source: "http://w1.com",
               publishTime: '2023-01-01',
+              url: "http://i1.png",
             },
             {
               id: testWorkIds[1],
@@ -103,6 +104,7 @@ describe("GET /works", function () {
               type: "Editorial",
               source: "http://w2.com",
               publishTime: '2022-01-01',
+              url: "http://i2.png",
             },
             {
               id: testWorkIds[2],
@@ -111,6 +113,7 @@ describe("GET /works", function () {
               type: "Shows",
               source: "http://w3.com",
               publishTime: '2021-01-01',
+              url: "http://i8.png",
             },
           ],
     });
@@ -129,6 +132,7 @@ describe("GET /works", function () {
           type: "Editorial",
           source: "http://w1.com",
           publishTime: '2023-01-01',
+          url: "http://i1.png",
         },
         {
           id: testWorkIds[1],
@@ -137,6 +141,7 @@ describe("GET /works", function () {
           type: "Editorial",
           source: "http://w2.com",
           publishTime: '2022-01-01',
+          url: "http://i2.png",
         },
       ],
     });
@@ -155,6 +160,7 @@ describe("GET /works", function () {
           type: "Editorial",
           source: "http://w2.com",
           publishTime: '2022-01-01',
+          url: "http://i2.png",
         },
       ],
     });

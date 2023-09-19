@@ -72,7 +72,7 @@ class People {
     }
 
     if (whereExpressions.length > 0) {
-      query += " WHERE " + whereExpressions.join(" AND ");
+      query += " WHERE " + whereExpressions.join(" OR ");
     }
 
     // Finalize query and return results

@@ -44,17 +44,22 @@ class Work {
    * - type
    * - client
    *
-   * Returns [{ id, title, client, type, source, publishTime }, ...]
+   * Returns [{ id, title, client, type, source, publishTime, url}, ...]
    * */
 
   static async findAll(searchFilters = {}) {
-    let query = `SELECT id,
-                        title,
-                        client,
-                        type,
-                        source,
-                        publish_time AS "publishTime"
-                 FROM works`;
+    let query = `SELECT w.id,
+                        w.title,
+                        w.client,
+                        w.type,
+                        w.source,
+                        w.publish_time AS "publishTime",
+                        MIN(i.url) AS "url"
+                 FROM works AS w
+                 JOIN work_image
+                 ON w.id = work_image.work_id
+                 JOIN images AS i
+                 ON work_image.image_id = i.id`;
     let whereExpressions = [];
     let queryValues = [];
 
@@ -78,8 +83,9 @@ class Work {
     }
 
     // Finalize query and return results
-
+    query += " GROUP BY w.id";
     query += " ORDER BY publish_time DESC";
+
     const workRes = await db.query(query, queryValues);
     return workRes.rows;
   }

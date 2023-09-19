@@ -121,10 +121,10 @@ describe("GET /people", function () {
     );
   });
 
-  test("works: filtering", async function () {
+  test("works: filtering on role", async function () {
     const resp = await request(app)
         .get(`/people`)
-        .query({ fullname: "p" });
+        .query({ role: "Model" });
     expect(resp.body).toEqual({
           people: [
               {
@@ -138,14 +138,6 @@ describe("GET /people", function () {
               {
                 fullname: "p3",
                 profileImgUrl: "http://i3.png"
-              },
-              {
-                fullname: "p4",
-                profileImgUrl: "http://i4.png"
-              },
-              {
-                fullname: "p5",
-                profileImgUrl: "http://i5.png"
               },
           ],
         },
@@ -155,7 +147,7 @@ describe("GET /people", function () {
   test("works: filtering on 2 filters", async function () {
     const resp = await request(app)
         .get(`/people`)
-        .query({ fullname: "p", role: "Mo" });
+        .query({ fullname: "1", role: "s" });
     expect(resp.body).toEqual({
           people: [
               {
@@ -163,12 +155,8 @@ describe("GET /people", function () {
                 profileImgUrl: "http://i1.png"
               },
               {
-                fullname: "p2",
-                profileImgUrl: "http://i2.png"
-              },
-              {
-                fullname: "p3",
-                profileImgUrl: "http://i3.png"
+                fullname: "p5",
+                profileImgUrl: "http://i5.png"
               },
           ],
         },

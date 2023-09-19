@@ -41,7 +41,7 @@ router.post("/", ensureAdmin, async function (req, res, next) {
 });
 
 /** GET /  =>
- *   { works: [ { id, title, client, type, source, publishTime }, ...] }
+ *   { works: [ { id, title, client, type, source, publishTime, url }, ...] }
  *
  * Can filter on provided search filters:
  * - type

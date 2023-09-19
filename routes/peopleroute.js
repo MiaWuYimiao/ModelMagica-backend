@@ -39,7 +39,7 @@ router.post("/", ensureAdmin, async function (req, res, next) {
 });
 
 /** GET / =>
- *   { works: [ { fullname, profileImg, role, biography, birthday, nationalities, socialMedia, follower }, ...] }
+ *   { people: [ { fullname, profileImgUrl }, ...] }
  *
  * Can provide search filter in query:
  * - fullname (will find case-insensitive, partial matches)
@@ -65,7 +65,7 @@ router.get("/", async function (req, res, next) {
   }
 });
 
-/** GET /[fullname] => { job }
+/** GET /[fullname] => { person }
  *
  * Returns { fullname, profileImgUrl, role, biography, birthday, 
  *            nationalities, socialMedia, follower, works, relatedPeople }
