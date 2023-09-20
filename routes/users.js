@@ -152,7 +152,7 @@ router.delete("/:username/people/:artist", ensureCorrectUserOrAdmin, async funct
   }
 });
 
-/** GET /[username]/people => { favorites: [ artist, ... ] }
+/** GET /[username]/people => { favorites: [{artist, role, profileImgUrl}, ... ] }
  *
  * Returns list of favorite artists of user.
  *

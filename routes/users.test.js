@@ -477,7 +477,18 @@ describe("GET /users/:username/people", function () {
         .get("/users/u1/people")
         .set("authorization", `Bearer ${adminToken}`);
     expect(resp.body).toEqual({
-      favorites: [ { artist: "p1"}, { artist: "p2"} ]
+      favorites: [ 
+        {
+          artist: "p1",
+          role: "Model",
+          profileImgUrl: "http://i1.png"
+        },
+        {
+          artist: "p2",
+          role: "Model",
+          profileImgUrl: "http://i2.png"
+        },
+       ]
     });
   });
 
@@ -486,7 +497,18 @@ describe("GET /users/:username/people", function () {
         .get("/users/u1/people")
         .set("authorization", `Bearer ${u1Token}`);
     expect(resp.body).toEqual({
-      favorites: [ { artist: "p1"}, { artist: "p2"} ]
+      favorites: [ 
+        {
+          artist: "p1",
+          role: "Model",
+          profileImgUrl: "http://i1.png"
+        },
+        {
+          artist: "p2",
+          role: "Model",
+          profileImgUrl: "http://i2.png"
+        },
+       ]
     });
   });
 

@@ -265,9 +265,13 @@ class User {
    */
    static async getFavorites(username) {
     const result = await db.query(
-          `SELECT artist
-           FROM favorites
-           WHERE username = $1`,
+          `SELECT f.artist AS "artist", p.role AS "role", i.url AS "profileImgUrl"
+           FROM favorites AS f
+           JOIN people As p
+           ON f.artist = p.fullname
+           JOIN images AS i
+           ON p.profile_img = i.id
+           WHERE f.username = $1`,
         [username],
     );
 

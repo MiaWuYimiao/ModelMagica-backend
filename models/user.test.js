@@ -289,10 +289,14 @@ describe("get all favorites", function () {
     const favorites = await User.getFavorites("u1");
     expect(favorites).toEqual([
       {
-        artist: "p1"
+        artist: "p1",
+        role: "Model",
+        profileImgUrl: "http://i1.png"
       },
       {
-        artist: "p2"
+        artist: "p2",
+        role: "Model",
+        profileImgUrl: "http://i2.png"
       },
     ]);
   });
