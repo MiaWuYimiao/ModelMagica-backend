@@ -423,3 +423,76 @@ describe("POST /users/:username/people/:artist", function () {
     expect(resp.statusCode).toEqual(404);
   });
 });
+
+/************************************** DELETE /users/:username/people/:artist */
+
+describe("DELETE /users/:username/people/:artist", function () {
+  test("works for admin", async function () {
+    const resp = await request(app)
+        .delete(`/users/u1/people/p1`)
+        .set("authorization", `Bearer ${adminToken}`);
+    expect(resp.body).toEqual({ deleted: "p1" });
+  });
+
+  test("works for same user", async function () {
+    const resp = await request(app)
+        .delete(`/users/u1/people/p1`)
+        .set("authorization", `Bearer ${u1Token}`);
+    expect(resp.body).toEqual({ deleted: "p1" });
+  });
+
+  test("unauth if not same user", async function () {
+    const resp = await request(app)
+        .delete(`/users/u1/people/p1`)
+        .set("authorization", `Bearer ${u2Token}`);
+    expect(resp.statusCode).toEqual(401);
+  });
+
+  test("unauth for anon", async function () {
+    const resp = await request(app)
+        .delete(`/users/u1/people/p1`);
+    expect(resp.statusCode).toEqual(401);
+  });
+
+  test("not found if user missing", async function () {
+    const resp = await request(app)
+        .delete(`/users/nope/people/p1`)
+        .set("authorization", `Bearer ${adminToken}`);
+    expect(resp.statusCode).toEqual(404);
+  });
+
+  test("not found if artist missing", async function () {
+    const resp = await request(app)
+        .delete(`/users/nope/people/p3`)
+        .set("authorization", `Bearer ${adminToken}`);
+    expect(resp.statusCode).toEqual(404);
+  });
+});
+
+/************************************** GET /favorites */
+
+describe("GET /users/:username/people", function () {
+  test("works for admins", async function () {
+    const resp = await request(app)
+        .get("/users/u1/people")
+        .set("authorization", `Bearer ${adminToken}`);
+    expect(resp.body).toEqual({
+      favorites: [ { artist: "p1"}, { artist: "p2"} ]
+    });
+  });
+
+  test("works for same users", async function () {
+    const resp = await request(app)
+        .get("/users/u1/people")
+        .set("authorization", `Bearer ${u1Token}`);
+    expect(resp.body).toEqual({
+      favorites: [ { artist: "p1"}, { artist: "p2"} ]
+    });
+  });
+
+  test("unauth for anon", async function () {
+    const resp = await request(app)
+        .get("/users/u1/people");
+    expect(resp.statusCode).toEqual(401);
+  });
+});

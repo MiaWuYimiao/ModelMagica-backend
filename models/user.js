@@ -239,6 +239,40 @@ class User {
            VALUES ($1, $2)`,
         [username, artist]);
   }
+
+  /** Delete favorite: update db, returns undefined.
+   *
+   * - username: username adding people to favorites list
+   * - artist: artist fullname
+   **/
+  static async deleteFavorite(username, artist) {
+    let result = await db.query(
+        `DELETE
+        FROM favorites
+        WHERE username = $1
+        AND artist = $2
+        RETURNING username`,
+      [username, artist],
+    );
+    const user = result.rows[0];
+
+    if (!user) throw new NotFoundError(`No favorites: ${username, artist}`);
+  }
+
+  /** Get all favorites
+   * 
+   * Returns [artist, ...]
+   */
+   static async getFavorites(username) {
+    const result = await db.query(
+          `SELECT artist
+           FROM favorites
+           WHERE username = $1`,
+        [username],
+    );
+
+    return result.rows;
+  }
 }
 
 

@@ -22,7 +22,7 @@ afterAll(commonAfterAll);
 /************************************** authenticate */
 
 describe("authenticate", function () {
-  test("users", async function () {
+  test("works", async function () {
     const user = await User.authenticate("u1", "password1");
     expect(user).toEqual({
       username: "u1",
@@ -63,7 +63,7 @@ describe("register", function () {
     isAdmin: false,
   };
 
-  test("users: new user register", async function () {
+  test("works: new user register", async function () {
     let user = await User.register({
       ...newUser,
       password: "password",
@@ -75,7 +75,7 @@ describe("register", function () {
     expect(found.rows[0].password.startsWith("$2b$")).toEqual(true);
   });
 
-  test("users: adds admin", async function () {
+  test("works: adds admin", async function () {
     let user = await User.register({
       ...newUser,
       password: "password",
@@ -108,7 +108,7 @@ describe("register", function () {
 /************************************** findAll */
 
 describe("findAll", function () {
-  test("users", async function () {
+  test("works", async function () {
     const users = await User.findAll();
     expect(users).toEqual([
       {
@@ -132,7 +132,7 @@ describe("findAll", function () {
 /************************************** get */
 
 describe("get", function () {
-  test("users: get user by username", async function () {
+  test("works: get user by username", async function () {
     let user = await User.get("u1");
     expect(user).toEqual({
       username: "u1",
@@ -233,7 +233,7 @@ describe("remove", function () {
 /************************************** addFavorite*/
 
 describe("addFavorite", function () {
-  test("users", async function () {
+  test("works", async function () {
     await User.addFavorite("u2", "p1");
 
     const res = await db.query(
@@ -262,3 +262,39 @@ describe("addFavorite", function () {
     }
   });
 });
+
+/************************************** delete favorite */
+
+describe("delete favorite", function () {
+  test("works", async function () {
+    await User.deleteFavorite("u1", "p1");
+    const res = await db.query(
+        "SELECT * FROM favorites WHERE username='u1'");
+    expect(res.rows.length).toEqual(1);
+  });
+
+  test("not found if no such user", async function () {
+    try {
+      await User.deleteFavorite("nope", "p2");
+      fail();
+    } catch (err) {
+      expect(err instanceof NotFoundError).toBeTruthy();
+    }
+  });
+});
+
+/************************************** get all favorites */
+describe("get all favorites", function () {
+  test("works", async function () {
+    const favorites = await User.getFavorites("u1");
+    expect(favorites).toEqual([
+      {
+        artist: "p1"
+      },
+      {
+        artist: "p2"
+      },
+    ]);
+  });
+});
+

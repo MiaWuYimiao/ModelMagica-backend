@@ -138,5 +138,34 @@ router.post("/:username/people/:artist", ensureCorrectUserOrAdmin, async functio
   }
 });
 
+/** DELETE /[username]/people/[artist]  =>  { deleted: artist }
+ *
+ * Authorization required: admin or same-user-as-:username
+ **/
+
+router.delete("/:username/people/:artist", ensureCorrectUserOrAdmin, async function (req, res, next) {
+  try {
+    await User.deleteFavorite(req.params.username, req.params.artist);
+    return res.json({ deleted: req.params.artist });
+  } catch (err) {
+    return next(err);
+  }
+});
+
+/** GET /[username]/people => { favorites: [ artist, ... ] }
+ *
+ * Returns list of favorite artists of user.
+ *
+ *  Authorization required: admin or same-user-as-:username
+ **/
+
+router.get("/:username/people", ensureCorrectUserOrAdmin, async function (req, res, next) {
+  try {
+    const favorites = await User.getFavorites(req.params.username);
+    return res.json({ favorites });
+  } catch (err) {
+    return next(err);
+  }
+});
 
 module.exports = router;
