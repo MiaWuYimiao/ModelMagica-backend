@@ -261,7 +261,7 @@ class User {
 
   /** Get all favorites
    * 
-   * Returns [artist, ...]
+   * Returns [{artist, role, profileImgUrl}, ...]
    */
    static async getFavorites(username) {
     const result = await db.query(
