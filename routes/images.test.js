@@ -62,6 +62,30 @@ describe("POST /images", function () {
   });
 });
 
+/************************************** GET /:id/people */
+
+describe("GET /images/:id/people", function () {
+  test("works", async function () {
+    const resp = await request(app).get(`/images/${testImageIds[0]}/people`);
+    expect(resp.body).toEqual({
+      crew: [
+        { 
+          fullname: "p1",
+          role: "Model"
+        },
+        { 
+          fullname: "p4",
+          role: "Photographer"
+        }
+      ]
+    });
+  });
+
+  test("not found for no such image", async function () {
+    const resp = await request(app).get(`/0/people`);
+    expect(resp.statusCode).toEqual(404);
+  });
+});
 
 /************************************** POST /images/:id/works/:workid */
 

@@ -108,7 +108,7 @@ class People {
 
     const person = personRes.rows[0];
 
-    if (!person) throw new NotFoundError(`No persion: ${fullname}`);
+    if (!person) throw new NotFoundError(`No person: ${fullname}`);
 
     const worksRes = await db.query(
           `SELECT w.id,

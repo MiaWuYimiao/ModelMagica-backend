@@ -37,6 +37,21 @@ router.post("/", ensureAdmin, async function (req, res, next) {
   }
 });
 
+/** GET /  [ id ]  => { crew : [{ fullname, role} ...] }
+ *
+ *
+ * Authorization required: none
+ */
+
+ router.get("/:id/people", async function (req, res, next) {
+  try {
+    const crew = await Image.getCrew(req.params.id);
+    return res.json({ crew });
+  } catch (err) {
+    return next(err);
+  }
+});
+
 /** POST /[id]/works/[workid]  { state } => { work_image }
  *
  * Returns {"addedWorkImg": [workId, imageId]}

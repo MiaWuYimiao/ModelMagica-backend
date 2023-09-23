@@ -37,6 +37,37 @@ class Image {
     return image;
   }
 
+  /** Given an img id, return crew data about this image.
+   *
+   * Returns [ {fullname, role} ...]
+   *
+   * Throws NotFoundError if not found.
+   **/
+
+   static async getCrew(id) {
+    const imageRes = await db.query(
+      `SELECT id
+       FROM images
+       WHERE id = $1`,
+    [id]);
+
+    const image = imageRes.rows[0];
+    
+    if(!image) throw new NotFoundError(`No image: ${id}`);
+
+    const crewRes = await db.query(
+          `SELECT p.fullname,
+                  p.role
+          FROM people AS p
+                  JOIN people_image
+                  ON p.fullname = people_image.artist
+                  JOIN images AS i
+                  ON people_image.image_id = i.id
+           WHERE i.id = $1`, [id]);
+
+    return crewRes.rows;
+  }
+
 
   /** Add work_image relationship: update db, returns undefined.
    *

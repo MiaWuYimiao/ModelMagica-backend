@@ -51,6 +51,32 @@ describe("create", function () {
   });
 });
 
+/************************************** getImageCrew */
+
+describe("getImageCrew", function () {
+  test("works", async function () {
+    let crew = await Image.getCrew(testImageIds[0]);
+    expect(crew).toEqual([{
+      fullname: "p1",
+      role: "Model"
+    },
+    {
+      fullname: "p4",
+      role: "Photographer"
+    }])
+  });
+
+  test("not found if no such image", async function () {
+    try {
+      await Image.getCrew(0);
+      fail();
+    } catch (err) {
+      expect(err instanceof NotFoundError).toBeTruthy();
+    }
+  });
+});
+
+
 /************************************** addWorkImage*/
 
 describe("addWorkImage", function () {
