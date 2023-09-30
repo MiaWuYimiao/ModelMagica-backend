@@ -82,7 +82,7 @@ describe("GET /images/:id/people", function () {
   });
 
   test("not found for no such image", async function () {
-    const resp = await request(app).get(`/0/people`);
+    const resp = await request(app).get(`/images/0/people`);
     expect(resp.statusCode).toEqual(404);
   });
 });
