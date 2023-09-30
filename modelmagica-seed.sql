@@ -5,13 +5,13 @@ VALUES ('testuser',
         '$2b$12$AZH7virni5jlTTiGgEg4zu3lSvAw68qVEfSIOjJ3RqtbJbdW/Oi5q',
         'Test',
         'User',
-        'joel@joelburton.com',
+        'mia@miawu.com',
         FALSE),
        ('testadmin',
         '$2b$12$AZH7virni5jlTTiGgEg4zu3lSvAw68qVEfSIOjJ3RqtbJbdW/Oi5q',
         'Test',
         'Admin!',
-        'joel@joelburton.com',
+        'mia@miawu.com', 
         TRUE);
 
 INSERT INTO images (url)
